@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_super_user(self, email, password):
+    def create_superuser(self, email, password):
         """Creates a new superuser"""
         user = self.create_user(email, password)
         user.is_staff = True
@@ -213,7 +213,7 @@ class Event(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='events')
     status = models.ForeignKey(EventStatus, on_delete=models.CASCADE, related_name='status')
     def __str__(self):
-        return f"{self.name, self.date}"
+        return f"{self.name}"
 
 class EventNote(models.Model):
     note = models.CharField(default = "NA", max_length = 2000)
@@ -362,11 +362,11 @@ class Payment(models.Model):
     def __str__(self):
         return f"{self.amount}"
 
-#class Changes(models.Model):
-#user = models.Foreignkey(User, on_delete= models.CASCADE, related_name='changes')
-#model_changed = models.CharField(max_length = 50)
-#column_changed = models.CharField(max_length = 50)
-#record_changed_id = models.IntegerField()
-#date_changed = models.DateTimeField()
-#previous_value = models.CharField(max_length = 250)
-#new_value = models.CharField(max_length = 250)
+class Changes(models.Model):
+    user = models.ForeignKey(User, on_delete= models.CASCADE, related_name='changes')
+    model_changed = models.CharField(max_length = 50)
+    column_changed = models.CharField(max_length = 50)
+    record_changed_id = models.IntegerField()
+    date_changed = models.DateTimeField(default=datetime.datetime.now())
+    previous_value = models.CharField(max_length = 250)
+    new_value = models.CharField(max_length = 250)

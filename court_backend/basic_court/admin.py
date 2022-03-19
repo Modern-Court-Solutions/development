@@ -1,34 +1,158 @@
+from ast import Add
 from django.contrib import admin
+from reversion.admin import VersionAdmin
 
 from .models import *
+
+
+
 # Register your models here.
-admin.site.register(User)
-admin.site.register(ChargeCode)
-admin.site.register(ChargeClass)
-admin.site.register(Charge)
-admin.site.register(Judge)
-admin.site.register(CourtOfficial)
-admin.site.register(CaseSecurity)
-admin.site.register(CaseStatus)
-admin.site.register(CaseLocation)
-admin.site.register(CaseType)
-admin.site.register(Case)
-admin.site.register(CaseNotes)
-admin.site.register(EventType)
-admin.site.register(Event)
-admin.site.register(EventNote)
-admin.site.register(DocumentType)
-admin.site.register(Document)
-admin.site.register(Address)
-admin.site.register(Contact)
-admin.site.register(Attorney)
-admin.site.register(Participant)
-admin.site.register(FeeCode)
-admin.site.register(Fee)
-admin.site.register(ParticipantFeeJoin)
-admin.site.register(Mover)
-admin.site.register(Responder)
-admin.site.register(MoverCounsel)
-admin.site.register(ResponderCounsel)
-admin.site.register(PaymentType)
-admin.site.register(Payment)
+@admin.register(User)
+class UserAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(ChargeCode)
+class ChargeCodeAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(ChargeClass)
+class ChargeClassAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Charge)
+class ChargeAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Judge)
+class JudgeAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(CourtOfficial)
+class CourtOfficialAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(CaseSecurity)
+class CaseSecurityAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(CaseStatus)
+class CaseStatusAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(CaseLocation)
+class CaseLocationAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(CaseType)
+class CaseTypeAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Case)
+class CaseAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(CaseNotes)
+class CaseNotesAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(EventType)
+class EventTypeAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Event)
+class EventAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(EventNote)
+class EventNoteAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(DocumentType)
+class DocumentTypeAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Document)
+class DocumentAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Address)
+class AddressAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Contact)
+class ContactAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Attorney)
+class AttorneyAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Participant)
+class ParticipantAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(FeeCode)
+class FeeCodeAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Fee)
+class FeeAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(ParticipantFeeJoin)
+class ParticipantFeeJoinAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Mover)
+class MoverAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Responder)
+class ResponderAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(MoverCounsel)
+class MoverCounselAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(ResponderCounsel)
+class ResponderCounselAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(PaymentType)
+class PaymentTypeAdmin(VersionAdmin):
+
+    pass
+
+@admin.register(Payment)
+class PaymentAdmin(VersionAdmin):
+
+    pass
