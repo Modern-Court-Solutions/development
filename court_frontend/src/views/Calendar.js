@@ -5,15 +5,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
 import transposeEvents from "../composables/transposeEvents";
+import EventInfo from "../components/EventInfo";
 
 const BigCalendar = ({ items }) => {
   moment.locale("en-US");
   const localizer = momentLocalizer(moment);
   const token = localStorage.getItem("token");
   let navigate = useNavigate();
+  const [currentEvent, setCurrentEvent] = useState({});
 
   const [events, setEvents] = useState([]);
-
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     if (!token) {
       navigate("/login");
@@ -43,6 +45,7 @@ const BigCalendar = ({ items }) => {
         backgroundColor: "transparent",
       }}
     >
+      {open ? <EventInfo eventInfo={currentEvent} setOpen={setOpen} /> : null}
       <Paper
         elevation={10}
         style={{
@@ -64,6 +67,8 @@ const BigCalendar = ({ items }) => {
             defaultDate={new Date()}
             onSelectEvent={(e) => {
               console.log(e);
+              setOpen(true);
+              setCurrentEvent(e);
             }}
           />
         ) : null}
