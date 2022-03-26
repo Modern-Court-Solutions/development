@@ -34,3 +34,6 @@ code {
   height: 100% !important;
   width: 130vh !important;
 }
+.rbc-agenda-event-cell {
+  cursor: pointer !important;
+}
