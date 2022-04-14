@@ -16,7 +16,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Copyright from "../components/Copyright";
 import { useRouter } from "next/router";
 import { useSignIn } from "../hooks/user";
-// import ErrorSnackBar from "../../components/ErrorSnackBar";
+import ErrorSnackBar from "../components/ErrorSnackBar";
+import { useState } from "react";
 
 const theme = createTheme();
 
@@ -32,33 +33,40 @@ export const getStaticProps = () => {
 const Login = ({ COMPANY_NAME }) => {
   const router = useRouter();
   const { signInError, signInLoading, signIn } = useSignIn();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   //TODO if existing and valid user, nav to '/'
   const handleSubmit = async (event) => {
+    setLoading(true);
+    setError(false);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
     try {
       const valid = await signIn(email, password);
-      console.log(signInError, valid);
+
       if (valid) {
         router.push("/");
+      } else {
+        throw new Error();
       }
     } catch (err) {
-      //mutation.isError will catch this
+      setError(true);
     }
+    setLoading(false);
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={signInLoading}
+        open={loading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      {signInError && <ErrorSnackBar severity="error" />}
+      {error && <ErrorSnackBar severity="error" />}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -101,7 +109,11 @@ const Login = ({ COMPANY_NAME }) => {
               id="password"
               autoComplete="current-password"
             />
-
+            {error && (
+              <Typography sx={{ color: "red" }}>
+                Incorrect Login Credentials
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
