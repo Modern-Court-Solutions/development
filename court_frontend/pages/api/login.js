@@ -1,4 +1,3 @@
-import { fetchLogin } from "../../lib/loginApi";
 import cookie from "cookie";
 
 const LOGIN_URL = process.env.LOGIN_URL;
@@ -11,7 +10,7 @@ const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   const userInfo = { email: email, password: password };
   try {
-    const response = await fetch("http://127.0.0.1:8000/user/token/", {
+    const response = await fetch(LOGIN_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,10 +35,10 @@ const handleLogin = async (req, res) => {
           httpOnly: true,
         })
       )
-      .json({});
+      .json({ stat: "ok" });
   } catch (err) {
-    console.log(err);
     res.status(401).end();
+    return false;
   }
 };
 

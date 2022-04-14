@@ -75,7 +75,7 @@ export default function Appdrawer() {
           sx={{ marginTop: "auto", paddingBottom: 5 }}
           onClick={() => {
             //handle logout
-            router.push("/login");
+            router.push("/signIn");
           }}
         >
           <ListItemIcon>

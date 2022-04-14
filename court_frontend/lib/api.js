@@ -13,6 +13,7 @@ export const fetchJson = async (url, options) => {
   const res = await fetch(url, options);
 
   if (!res.ok) {
+    return false;
     throw new ApiError(url, res.status);
   }
 
