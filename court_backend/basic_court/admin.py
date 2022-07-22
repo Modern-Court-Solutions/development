@@ -156,3 +156,8 @@ class PaymentTypeAdmin(VersionAdmin):
 class PaymentAdmin(VersionAdmin):
 
     pass
+
+@admin.register(Reports)
+class ReportAdmin(VersionAdmin):
+
+    pass

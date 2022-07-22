@@ -33,4 +33,7 @@ urlpatterns=[
     path('api/paymenttypes/', basic_court.api_views.PaymentTypeList.as_view()),
     path('api/feecodes/', basic_court.api_views.FeeCodeList.as_view()),
     path('api/calendar/', basic_court.api_views.CalendarList.as_view()),
+    path('api/reports/', basic_court.api_views.ReportList.as_view()),
+    path('api/reports/new', basic_court.api_views.ReportCreate.as_view()),
+    path('api/reports/<int:id>/', basic_court.api_views.ReportRetrieveUpdateDestroy.as_view()),
 ]

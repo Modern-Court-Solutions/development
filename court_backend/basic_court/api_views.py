@@ -12,9 +12,6 @@ from rest_framework.permissions import IsAuthenticated
 
 from basic_court.models import Case
 
-#ToDo:
-#Attorney API
-#Participant API
 
 class AttorneyList(ListAPIView):
     queryset = Attorney.objects.all()
@@ -310,10 +307,10 @@ class CaseLocationList(ListAPIView):
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
-    search_fields = ('id', 'location',) # Not sure if the location search field is working properly, check with Jameson
+    search_fields = ('id', 'location',) 
     
     
-class EventStatusList(ListAPIView): # Is Active the only current Event Status? With a null value equaling Cancelled?
+class EventStatusList(ListAPIView): 
     queryset = EventStatus.objects.all()
     serializer_class = EventStatusSerializer
     authentication_classes = (TokenAuthentication,)
@@ -324,7 +321,7 @@ class EventStatusList(ListAPIView): # Is Active the only current Event Status? W
     search_fields = ('id', 'event_status',)
     
     
-class EventTypeList(ListAPIView): # Only pulling in the hearing event type, but the search field shows Phone Hearing and Video Hearing too
+class EventTypeList(ListAPIView): 
     queryset = EventType.objects.all()
     serializer_class = EventTypeSerializer
     authentication_classes = (TokenAuthentication,)
@@ -346,7 +343,7 @@ class DocumentTypeList(ListAPIView):
     search_fields = ('id', 'document_type',)
     
     
-class PaymentTypeList(ListAPIView): # Filter field on payment_type is not working properly, does display the three payment types
+class PaymentTypeList(ListAPIView): 
     queryset = PaymentType.objects.all()
     serializer_class = PaymentTypeSerializer
     authentication_classes = (TokenAuthentication,)
@@ -358,7 +355,7 @@ class PaymentTypeList(ListAPIView): # Filter field on payment_type is not workin
     
     
     
-class FeeCodeList(ListAPIView): # Search field isn't working quite right
+class FeeCodeList(ListAPIView): 
     queryset = FeeCode.objects.all()
     serializer_class = FeeCodeSerializer
     authentication_classes = (TokenAuthentication,)
@@ -368,3 +365,42 @@ class FeeCodeList(ListAPIView): # Search field isn't working quite right
     filter_fields = ('id',)
     search_fields = ('id', 'code') 
     
+class ReportList(ListAPIView):
+    queryset = Reports.objects.all()
+    serializer_class = ReportSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    filter_backends = (DjangoFilterBackend, SearchFilter)
+    filter_fields = ('id', 'name', 'params', 'court', 'user',)
+    search_fields = ('id', 'name', 'params', 'court', 'user',)
+    
+
+class ReportCreate(CreateAPIView):
+    serializer_class = ReportSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+class ReportRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    queryset = Reports.objects.all()
+    lookup_field = 'id'
+    serializer_class = ReportSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+
+    def delete(self, request, *args, **kwargs):
+        report_id = request.data.get('id')
+        response = super().delete(request, *args, **kwargs)
+        if response.status_code == 204:
+            from django.core.cache import cache
+            cache.delete('reports_data_{}'.format(report_id))
+        return response
+
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        return response

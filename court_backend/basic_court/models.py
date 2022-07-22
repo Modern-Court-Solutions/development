@@ -370,3 +370,10 @@ class Changes(models.Model):
     date_changed = models.DateTimeField(default=datetime.datetime.now())
     previous_value = models.CharField(max_length = 250)
     new_value = models.CharField(max_length = 250)
+
+#Report Model
+class Reports(models.Model):
+    name = models.CharField(max_length=50)
+    params = models.CharField(max_length=250)
+    court = models.BooleanField(default=False)
+    user = models.CharField(max_length=20)

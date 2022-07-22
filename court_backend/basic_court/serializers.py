@@ -221,3 +221,8 @@ class FeeCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeeCode
         fields = ('id', 'code')
+
+class ReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reports
+        fields = ('id', 'name', 'params', 'court', 'user',)
