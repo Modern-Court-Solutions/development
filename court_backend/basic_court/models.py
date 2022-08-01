@@ -15,6 +15,7 @@ from django.db.models.fields import CharField, DateTimeField
 from django.db.models.fields.related import ForeignKey
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+
 #User model
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
@@ -46,6 +47,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+#File Model
+class File(models.Model):
+    title = models.CharField(max_length=128, blank=True)
+    file = models.FileField(upload_to = 'uploads')
+    def __str__(self):
+        return f"{self.title}"
+
 
 #Court Offical Models
 class Judge(models.Model):

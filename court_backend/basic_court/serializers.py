@@ -4,6 +4,12 @@ from django.db.models import fields
 from rest_framework import serializers
 from .models import *
 
+class FilteredListSerializer(serializers.ListSerializer):
+
+    def to_representation(self, data):
+        data = data.filter(user=self.context['request'].user, edition__hide=False)
+        return super(FilteredListSerializer, self).to_representation(data)
+
 class PaymentSerializer(serializers.ModelSerializer):
     fee = serializers.CharField(source='fee.fee.name')
     payment_type = serializers.CharField(source='payment_type.payment_type')
@@ -15,6 +21,11 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         fields = ('id', 'line_one', 'line_two', 'city', 'state', 'zip1', 'zip2')
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        fields = ('title', 'file')
 
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:

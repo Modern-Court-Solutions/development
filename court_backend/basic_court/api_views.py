@@ -12,6 +12,34 @@ from rest_framework.permissions import IsAuthenticated
 
 from basic_court.models import Case
 
+class FileCreate(CreateAPIView):
+    serializer_class = FileSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+class FileRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
+    queryset = File.objects.all()
+    lookup_field = 'id'
+    serializer_class = FileSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+
+    def delete(self, request, *args, **kwargs):
+        file_id = request.data.get('id')
+        response = super().delete(request, *args, **kwargs)
+        if response.status_code == 204:
+            from django.core.cache import cache
+            cache.delete('file_data_{}'.format(file_id))
+        return response
+
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        return response
 
 class AttorneyList(ListAPIView):
     queryset = Attorney.objects.all()
@@ -20,8 +48,8 @@ class AttorneyList(ListAPIView):
     permission_classes = (IsAuthenticated,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_fields = ('id', 'f_name', 'l_name', 'barnum')
-    search_fields = ('f_name', 'l_name', 'barnum')
+    filter_fields = ('f_name', 'l_name', 'barnum')
+    search_fields = ('id', 'f_name', 'l_name', 'barnum')
     
 
 class AttorneyCreate(CreateAPIView):
@@ -100,8 +128,8 @@ class CaseList(ListAPIView):
     permission_classes = (IsAuthenticated,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_fields = ('id', 'status', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders',)
-    search_fields = ('title', 'file_number',)
+    filter_fields = ('status', 'security', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders',)
+    search_fields = ('id','title', 'file_number',)
     #   
 
 class CalendarList(ListAPIView):

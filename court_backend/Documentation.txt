@@ -1,0 +1,95 @@
+New API's can be added very easily as well as filters and searches. Just let me know what you need.
+API calls:
+	Case APIs:
+
+		http://127.0.0.1:8000/basic_court/api/cases/
+			GET api call. Returns a list of new cases. 
+			Filters: 'status', 'security', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders',
+			Search: 'id','title', 'file_number',
+
+		http://127.0.0.1:8000/basic_court/api/cases/new
+			POST api call. Creates a new case. Only adds and takes the following:
+				'id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpretor', 'pro_se_litigant', 'filing_enabled'
+
+		http://127.0.0.1:8000/basic_court/api/cases/<int:id>/
+			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
+				'id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpretor', 'pro_se_litigant', 'filing_enabled'
+
+	Attorney APIs:
+
+		http://127.0.0.1:8000/basic_court/api/attorneys
+			GET api call. Returns a list of attorneys
+			Filters: 'f_name', 'l_name', 'barnum'
+			Search: 'id', 'f_name', 'l_name', 'barnum'
+
+		http://127.0.0.1:8000/basic_court/api/attorneys/new
+			POST api call. Creates a new attorney with the following:
+				'id', 'f_name', 'l_name', 'm_name', 'barnum', 'contact', 'primary_address'
+				
+		http://127.0.0.1:8000/basic_court/api/attorneys/<int:id>/
+
+	Participant APIs:
+
+		http://127.0.0.1:8000/basic_court/api/participants/
+
+		http://127.0.0.1:8000/basic_court/api/participants/new
+
+		http://127.0.0.1:8000/basic_court/api/participants/<int:id>
+
+	Case Notes APIs:
+
+		http://127.0.0.1:8000/basic_court/api/casenotes/
+
+		http://127.0.0.1:8000/basic_court/api/casenotes/new
+
+		http://127.0.0.1:8000/basic_court/api/casenotes/<int:id>/
+
+	Charge APIs:
+
+		http://127.0.0.1:8000/basic_court/api/charges/
+
+		http://127.0.0.1:8000/basic_court/api/charges/new
+
+		http://127.0.0.1:8000/basic_court/api/charges/<int:id>/
+
+	Event APIs:
+
+		http://127.0.0.1:8000/basic_court/api/events/
+
+		http://127.0.0.1:8000/basic_court/api/events/new
+
+		http://127.0.0.1:8000/basic_court/api/events/<int:id>/
+
+	Report APIs:
+
+		http://127.0.0.1:8000/basic_court/api/reports/
+
+		http://127.0.0.1:8000/basic_court/api/reports/new
+
+		http://127.0.0.1:8000/basic_court/api/reports/<int:id>/
+
+	Misc. APIs:
+
+		http://127.0.0.1:8000/basic_court/api/judges/
+
+		http://127.0.0.1:8000/basic_court/api/casesecurities/
+
+		http://127.0.0.1:8000/basic_court/api/casestatuses/
+
+		http://127.0.0.1:8000/basic_court/api/casetypes/
+
+		http://127.0.0.1:8000/basic_court/api/caselocations/
+
+		http://127.0.0.1:8000/basic_court/api/eventstatuses/
+
+		http://127.0.0.1:8000/basic_court/api/eventtypes/
+
+		http://127.0.0.1:8000/basic_court/api/documenttypes/
+
+		http://127.0.0.1:8000/basic_court/api/paymenttypes/
+
+		http://127.0.0.1:8000/basic_court/api/feecodes/
+
+		http://127.0.0.1:8000/basic_court/api/calendar/
+
+

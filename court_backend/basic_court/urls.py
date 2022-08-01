@@ -36,4 +36,6 @@ urlpatterns=[
     path('api/reports/', basic_court.api_views.ReportList.as_view()),
     path('api/reports/new', basic_court.api_views.ReportCreate.as_view()),
     path('api/reports/<int:id>/', basic_court.api_views.ReportRetrieveUpdateDestroy.as_view()),
+    path('api/files/new', basic_court.api_views.FileCreate.as_view()),
+    path('api/files/<int:id>/', basic_court.api_views.FileRetrieveUpdateDestroy.as_view()),
 ]

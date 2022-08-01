@@ -161,3 +161,8 @@ class PaymentAdmin(VersionAdmin):
 class ReportAdmin(VersionAdmin):
 
     pass
+
+@admin.register(File)
+class ReportAdmin(VersionAdmin):
+
+    pass
