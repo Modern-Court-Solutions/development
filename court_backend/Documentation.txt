@@ -27,14 +27,23 @@ API calls:
 				'id', 'f_name', 'l_name', 'm_name', 'barnum', 'contact', 'primary_address'
 				
 		http://127.0.0.1:8000/basic_court/api/attorneys/<int:id>/
+			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
+				'id', 'f_name', 'l_name', 'm_name', 'barnum', 'contact', 'primary_address'
 
 	Participant APIs:
 
 		http://127.0.0.1:8000/basic_court/api/participants/
+			GET api call. Returns a list of participants
+			Filters: 'id', 'f_name', 'l_name'
+			Search: 'id', 'f_name', 'l_name'
 
 		http://127.0.0.1:8000/basic_court/api/participants/new
+			POST api call. Creates a new participant with the following:
+				'id', 'f_name', 'l_name', 'm_name', 'contact', 'primary_address'
 
 		http://127.0.0.1:8000/basic_court/api/participants/<int:id>
+			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
+				'id', 'f_name', 'l_name', 'm_name', 'contact', 'primary_address'
 
 	Case Notes APIs:
 
@@ -68,6 +77,18 @@ API calls:
 
 		http://127.0.0.1:8000/basic_court/api/reports/<int:id>/
 
+	File APIs:
+
+		http://127.0.0.1:8000/basic_court/api/files/new
+
+		http://127.0.0.1:8000/basic_court/api/files/,int:id>/
+
+	User APIs:
+		
+		http://127.0.0.1:8000/user/create/
+		
+		http://127.0.0.1:8000/user/token/
+
 	Misc. APIs:
 
 		http://127.0.0.1:8000/basic_court/api/judges/
@@ -92,4 +113,5 @@ API calls:
 
 		http://127.0.0.1:8000/basic_court/api/calendar/
 
+		
 
