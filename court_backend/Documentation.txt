@@ -48,70 +48,138 @@ API calls:
 	Case Notes APIs:
 
 		http://127.0.0.1:8000/basic_court/api/casenotes/
+			GET api call. Returns a list of casenotes
+			Filters: 'id', 'case'
+			Search: 'title', 'note'
 
 		http://127.0.0.1:8000/basic_court/api/casenotes/new
+			POST api call. Creates a new case note with the following:
+				'id', 'case', 'note', 'date_created', 'title'
 
 		http://127.0.0.1:8000/basic_court/api/casenotes/<int:id>/
+			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
+				'id', 'case', 'note', 'date_created', 'title'
 
 	Charge APIs:
 
 		http://127.0.0.1:8000/basic_court/api/charges/
+			GET api call. Returns a list of charges
+			Filters: 'id', 'code', 'case',
+			Search: 'title', 
 
 		http://127.0.0.1:8000/basic_court/api/charges/new
+			POST api call. Creates a new charge with the following:
+				'id', 'case', 'title','code','charge_class'
 
 		http://127.0.0.1:8000/basic_court/api/charges/<int:id>/
+			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
+				'id', 'case', 'title','code','charge_class'
 
 	Event APIs:
 
 		http://127.0.0.1:8000/basic_court/api/events/
+			GET api call. Returns a list of casenotes
+			Filters: 'id', 'case', 'status', 'event_type',
+			Search: 'name', 'date',
 
 		http://127.0.0.1:8000/basic_court/api/events/new
+			POST api call. Creates a new event with the following:
+				'id', 'name', 'event_type', 'start', 'end', 'case', 'status'
 
 		http://127.0.0.1:8000/basic_court/api/events/<int:id>/
+			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
+				'id', 'name', 'event_type', 'start', 'end', 'case', 'status'
 
 	Report APIs:
 
 		http://127.0.0.1:8000/basic_court/api/reports/
+			GET api call. Returns a list of Reports
+			Filters: 'id', 'name', 'params', 'court', 'user',
+			Search: 'id', 'name', 'params', 'court', 'user',
 
 		http://127.0.0.1:8000/basic_court/api/reports/new
+			POST api call. Creates a new report with the following:
+				'id', 'name', 'params', 'court', 'user',
 
 		http://127.0.0.1:8000/basic_court/api/reports/<int:id>/
+			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
+				'id', 'name', 'params', 'court', 'user',
 
 	File APIs:
 
 		http://127.0.0.1:8000/basic_court/api/files/new
+			POST api call. Creates a new file with the following:
+				'title', 'file'
 
 		http://127.0.0.1:8000/basic_court/api/files/,int:id>/
+			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
+				'title', 'file'
 
 	User APIs:
 		
 		http://127.0.0.1:8000/user/create/
+			POST api call. Creates a new user with the following:
+				'email', 'password', 'name'
 		
 		http://127.0.0.1:8000/user/token/
+			GET api call. Returns a token for a user. Takes the following: 'email', 'password'
 
 	Misc. APIs:
 
 		http://127.0.0.1:8000/basic_court/api/judges/
+			GET api call. Returns a list of judges
+			Filters: 'id', 'f_name', 'l_name'
+			Search: 'f_name', 'l_name'
 
 		http://127.0.0.1:8000/basic_court/api/casesecurities/
-
+			GET api call. Returns a list of securities
+			Filters: 'id'
+			Search: 'id', 'security'
+			
 		http://127.0.0.1:8000/basic_court/api/casestatuses/
+			GET api call. Returns a list of case statuses
+			Filters: 'id'
+			Search: 'id', 'status'
 
 		http://127.0.0.1:8000/basic_court/api/casetypes/
+			GET api call. Returns a list of case types
+			Filters: 'id'
+			Search: 'id', 'case_type'
 
 		http://127.0.0.1:8000/basic_court/api/caselocations/
+			GET api call. Returns a list of locations
+			Filters: 'id' 
+			Search: 'id', 'location'
 
 		http://127.0.0.1:8000/basic_court/api/eventstatuses/
+			GET api call. Returns a list of event statuses
+			Filters: 'id',
+			Search: 'id', 'event_status'
 
 		http://127.0.0.1:8000/basic_court/api/eventtypes/
+			GET api call. Returns a list of event types
+			Filters: 'id'
+			Search: 'id', 'event_type'
 
 		http://127.0.0.1:8000/basic_court/api/documenttypes/
+			GET api call. Returns a list of document types
+			Filters: 'id'
+			Search: 'id', 'document_type'
 
 		http://127.0.0.1:8000/basic_court/api/paymenttypes/
+			GET api call. Returns a list of payment types
+			Filters: 'id'
+			Search: 'id', 'payment_type'
 
 		http://127.0.0.1:8000/basic_court/api/feecodes/
+			GET api call. Returns a list of fee codes
+			Filters: 'id',
+			Search: 'id', 'code'
 
 		http://127.0.0.1:8000/basic_court/api/calendar/
+			GET api call. Returns a list of cases
+			Filters: 'id', 'status', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders'
+			Search: 'title', 'file_number',
 
 		
 

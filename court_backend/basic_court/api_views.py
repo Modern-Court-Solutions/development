@@ -226,7 +226,7 @@ class ChargeList(ListAPIView):
     permission_classes = (IsAuthenticated,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_fields = ('code', 'case',)
+    filter_fields = ('id', 'code', 'case',)
     search_fields = ('title',)
     
 
@@ -262,7 +262,7 @@ class EventList(ListAPIView):
     permission_classes = (IsAuthenticated,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_fields = ('case', 'status', 'event_type',)
+    filter_fields = ('id', 'case', 'status', 'event_type',)
     search_fields = ('name', 'date',)
     
 
