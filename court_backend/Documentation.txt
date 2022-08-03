@@ -1,5 +1,5 @@
 New API's can be added very easily as well as filters and searches. Just let me know what you need.
-API calls:
+
 	Case APIs:
 
 		http://127.0.0.1:8000/basic_court/api/cases/
