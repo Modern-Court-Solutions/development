@@ -128,7 +128,7 @@ class CaseList(ListAPIView):
     permission_classes = (IsAuthenticated,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_fields = ('status', 'security', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders',)
+    filter_fields = ('id', 'status', 'security', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders',)
     search_fields = ('id','title', 'file_number',)
     #   
 
