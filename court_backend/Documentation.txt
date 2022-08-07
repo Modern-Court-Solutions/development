@@ -1,4 +1,5 @@
-New API's can be added very easily as well as filters and searches. Just let me know what you need.
+New API's can be added very easily as well as filters and searches. Just let me know what you need. On deletes you must have the last / included, it doesn't matter for gets. Example:
+http://127.0.0.1:8000/basic_court/api/cases/5/ will work for a delete but http://127.0.0.1:8000/basic_court/api/cases/5 will only work for a get.
 
 	Case APIs:
 
@@ -41,7 +42,7 @@ New API's can be added very easily as well as filters and searches. Just let me 
 			POST api call. Creates a new participant with the following:
 				'id', 'f_name', 'l_name', 'm_name', 'contact', 'primary_address'
 
-		http://127.0.0.1:8000/basic_court/api/participants/<int:id>
+		http://127.0.0.1:8000/basic_court/api/participants/<int:id>/
 			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
 				'id', 'f_name', 'l_name', 'm_name', 'contact', 'primary_address'
 
