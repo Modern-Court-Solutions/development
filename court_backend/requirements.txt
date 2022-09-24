@@ -12,6 +12,7 @@ django-cors-headers==3.10.0
 django-filter==21.1
 django-rest-auth==0.9.5
 django-rest-framework==0.1.0
+django-reversion==5.0.2
 djangorestframework==3.12.4
 djangorestframework-simplejwt==5.0.0
 Faker==11.1.0
