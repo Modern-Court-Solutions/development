@@ -341,7 +341,7 @@ class FeeCode(models.Model):
 class Fee(models.Model):
     name = models.CharField(max_length=50)
     code = models.ForeignKey(FeeCode, on_delete=models.CASCADE)
-    amount = models.FloatField()
+    amount = models.DecimalField(decimal_places=2, max_digits=8)
     def __str__(self):
         return f"{self.name, self.amount}"
 
@@ -395,7 +395,7 @@ class PaymentType(models.Model):
         return f"{self.payment_type}"
 
 class Payment(models.Model):
-    amount = models.FloatField()
+    amount = models.DecimalField(decimal_places=2, max_digits=8)
     date = models.DateTimeField(default=datetime.datetime.now())
     payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
     fee = models.ForeignKey(ParticipantFeeJoin, on_delete=models.CASCADE, related_name='payments')
