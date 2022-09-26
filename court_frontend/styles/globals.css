@@ -1,45 +1,18 @@
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  height: fit-content !important;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-}
-
-/* .css-fxbtpg {
-    height: auto !important;
-  } */
-.rbc-calendar {
-  height: 100% !important;
-  width: 130vh !important;
-}
-.rbc-agenda-event-cell {
-  cursor: pointer !important;
-}
-.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
-  border-right: none !important;
+@layer components {
+  .sideBarContainer {
+    @apply flex space-x-4 w-full py-4 cursor-pointer bg-slate-100 hover:bg-slate-200 border-b border-gray-300 text-gray-500 hover:text-gray-700;
+  }
+  .sideBarIcon {
+    @apply ml-5 w-7 h-7;
+  }
+  .sideBarText {
+    @apply pl-2 text-xl whitespace-nowrap;
+  }
+  .content {
+    margin-top: 4rem;
+  }
 }
