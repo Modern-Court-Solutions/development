@@ -44,6 +44,8 @@ const Layout = ({ children, token }: pageProps) => {
         </div>
       </div>
     );
+  } else {
+    return <div></div>;
   }
 };
 export default Layout;
