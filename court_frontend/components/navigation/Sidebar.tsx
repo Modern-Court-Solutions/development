@@ -1,15 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SidebarRoutes from "./SidebarRoutes";
 
 const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  useEffect(() => {
-    if (sidebarOpen) {
-      console.log("sidebar is open");
-    } else {
-      console.log("sidebar is closed");
-    }
-  }, [sidebarOpen]);
+
   return (
     <div
       onMouseEnter={() => {
