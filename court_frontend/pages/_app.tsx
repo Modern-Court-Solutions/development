@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Layout token={""}>
+        <Layout token="">
           <Component {...pageProps} />
         </Layout>
       </QueryClientProvider>
