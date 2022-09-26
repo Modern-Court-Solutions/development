@@ -21,6 +21,7 @@ const handleLogin = async (req, res) => {
       throw new Error();
     }
     const data = await response.json();
+    console.log("data", data);
 
     if (!data.token) {
       throw new Error();
