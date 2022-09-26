@@ -15,4 +15,13 @@
   .content {
     margin-top: 4rem;
   }
+  .scrollbar-thin {
+    @apply rounded-md;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+  }
 }
