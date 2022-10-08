@@ -49,6 +49,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
 
+class Authentication(models.Model):
+    CLERK = 'Clerk'
+    JUDGE = 'Judge'
+    AUTH_CHOICES = [
+        (CLERK, 'Clerk'),
+        (JUDGE, 'Judge')
+    ]
+    authentication = models.CharField(max_length=25, choices=AUTH_CHOICES, default=CLERK)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name="authentication")
+
 #File Model
 class File(models.Model):
     title = models.CharField(max_length=128, blank=True)

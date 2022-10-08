@@ -1,4 +1,6 @@
+from dataclasses import field
 from django.contrib.auth import get_user_model, authenticate
+from basic_court.models import User, Authentication
 
 from rest_framework import serializers
 
@@ -11,6 +13,8 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return get_user_model().objects.create_user(**validated_data)
 
+
+
 class AuthTokenSerializer(serializers.Serializer):
     email = serializers.CharField()
     password = serializers.CharField(style = {'input_type': 'password'}, trim_whitespace=False)
@@ -22,7 +26,7 @@ class AuthTokenSerializer(serializers.Serializer):
         user = authenticate(
             request = self.context.get('request'),
             username=email,
-            password=password
+            password=password,
         )
         if not user:
             msg = ('Unable to authenticate with provided credentials')
@@ -30,3 +34,14 @@ class AuthTokenSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
+
+class AuthenticationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Authentication
+        fields = ('id', 'authentication')
+
+class UserSerializerId(serializers.ModelSerializer):
+    authentication = AuthenticationSerializer()
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'authentication')
