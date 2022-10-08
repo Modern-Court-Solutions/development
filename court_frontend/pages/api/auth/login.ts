@@ -4,6 +4,7 @@ const getSession = nextSession();
 
 const LOGIN_URL = process.env.LOGIN_URL || "";
 const EXPIREHOURS = process.env.EXPIREHOURS || 1;
+const LOGIN_USER_VALIDATION_URL = process.env.LOGIN_USER_VALIDATION_URL || "";
 
 const handler = async (req: any, res: any) => {
   if (req.method !== "POST") {
@@ -25,11 +26,30 @@ const handler = async (req: any, res: any) => {
       throw new Error();
     }
     const data = await response.json();
-    console.log(data);
     if (!data.token) {
       throw new Error();
     }
-    session.name = "rob";
+    try {
+      const response = await fetch(
+        `${LOGIN_USER_VALIDATION_URL}?email=${userInfo?.email}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${data.token}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error();
+      }
+      const userStatus = await response.json();
+      console.log(userStatus);
+    } catch (error) {
+      console.log(error);
+      res.status(500).end();
+      return;
+    }
     session.user = userInfo;
     session.validated = true;
     let date = new Date();
