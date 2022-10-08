@@ -29,7 +29,7 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, password, **extra_fields):
         """Creates a new superuser"""
         user = self.create_user(email, password)
         user.is_staff = True
@@ -56,8 +56,8 @@ class Authentication(models.Model):
         (CLERK, 'Clerk'),
         (JUDGE, 'Judge')
     ]
-    authentication = models.CharField(max_length=25, choices=AUTH_CHOICES, default=CLERK)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name="authentication")
+    authorization = models.CharField(max_length=25, choices=AUTH_CHOICES, default=CLERK)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name="authorization")
 
 #File Model
 class File(models.Model):
