@@ -19,6 +19,8 @@ const Dashboard = ({ cases }: Props) => {
 export default Dashboard;
 
 export async function getServerSideProps(context: any) {
+  let x = context.req.headers.cookie;
+  console.log("cookieInfo", x);
   return {
     props: {
       cases: courtCases,
