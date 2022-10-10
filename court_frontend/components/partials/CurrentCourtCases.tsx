@@ -1,5 +1,6 @@
 import EventIcon from "@mui/icons-material/Event";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { getCookies } from "cookies-next";
 import Link from "next/link";
 type Props = {
   cases: Case[];
@@ -11,6 +12,13 @@ const CurrentCourtCases = ({ cases }: Props) => {
       role="list"
       className="grid grid-cols-1 gap-6 xl:grid-cols-2 2xl:grid-cols-2"
     >
+      <button
+        onClick={() => {
+          console.log("cookieInfo", getCookies());
+        }}
+      >
+        Click
+      </button>
       {cases.map((courtCase) => (
         <li
           key={courtCase.id}
@@ -31,8 +39,7 @@ const CurrentCourtCases = ({ cases }: Props) => {
               </p>
             </div>
             <div className="flex-shrink-0 rounded-md p-1 bg-gray-300">
-              {" "}
-              {courtCase.type}{" "}
+              {courtCase.type}
             </div>
           </div>
           <div>
