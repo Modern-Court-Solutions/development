@@ -1,3 +1,6 @@
+TODO: ADD Redux. On login api request, send back user info (name, set permissions to cookie). Then add name to redux store
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
