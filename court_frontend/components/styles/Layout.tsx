@@ -1,22 +1,15 @@
-import cookie from "cookie";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Navbar from "../navigation/Navbar";
 import Sidebar from "../navigation/Sidebar";
 
 type pageProps = {
   children: React.ReactNode;
-  token: string;
 };
 
-const Layout = ({ children, token }: pageProps) => {
+const Layout = ({ children }: pageProps) => {
   const route = useRouter();
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    if (!token) {
-      Router.push("/admin/authentication/login");
-    }
-  }, [token]);
 
   useEffect(() => {
     if (route.asPath) setTimeout(() => setLoading(false), 100);
@@ -36,7 +29,7 @@ const Layout = ({ children, token }: pageProps) => {
     return (
       <div className="h-screen w-screen overflow-hidden">
         <div className="h-16 absolute">
-          <Navbar username="Rob" />
+          <Navbar username={"Rob"} />
         </div>
         <div className="bg-slate-200 flex content h-full">
           <Sidebar />
@@ -49,20 +42,3 @@ const Layout = ({ children, token }: pageProps) => {
   }
 };
 export default Layout;
-
-export const getServerSideProps = async (ctx: any) => {
-  const token = cookie.parse(ctx.req.headers.cookie || "")["jwt"];
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/admin/authentication/login",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {
-      token: token,
-    },
-  };
-};
