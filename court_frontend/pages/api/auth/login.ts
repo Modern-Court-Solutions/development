@@ -1,4 +1,6 @@
 import cookie from "cookie";
+import { setCookie } from "cookies-next";
+import { NextApiRequest, NextApiResponse } from "next";
 import nextSession from "next-session";
 const getSession = nextSession();
 
@@ -6,11 +8,15 @@ const LOGIN_URL = process.env.LOGIN_URL || "";
 const EXPIREHOURS = process.env.EXPIREHOURS || 1;
 const LOGIN_USER_VALIDATION_URL = process.env.LOGIN_USER_VALIDATION_URL || "";
 
-const handler = async (req: any, res: any) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
     res.status(405).end();
     return;
   }
+
+  let expireTime = new Date(Date.now() + 60 * +EXPIREHOURS * 60000);
+  let userName = "";
+
   const session = await getSession(req, res);
   const { email, password } = req.body;
   const userInfo = { email: email, password: password };
@@ -44,7 +50,9 @@ const handler = async (req: any, res: any) => {
         throw new Error();
       }
       const userStatus = await response.json();
-      console.log(userStatus);
+      if (userStatus[0].name) {
+        userName = userStatus[0].name;
+      }
     } catch (error) {
       console.log(error);
       res.status(500).end();
@@ -52,18 +60,23 @@ const handler = async (req: any, res: any) => {
     }
     session.user = userInfo;
     session.validated = true;
-    let date = new Date();
-    date.setTime(date.getTime() + 60 * +EXPIREHOURS * 60000);
+    setCookie("server-key", "value", { req, res, maxAge: 60 * 60 * 24 });
+
+    console.log(data.token);
     res
       .status(200)
-      .setHeader(
-        "Set-Cookie",
+      .setHeader("Set-Cookie", [
         cookie.serialize("jwt", data.token, {
           path: "/",
           httpOnly: true,
-          expires: date,
-        })
-      )
+          expires: expireTime,
+        }),
+        cookie.serialize("userName", userName, {
+          path: "/",
+          httpOnly: true,
+          expires: expireTime,
+        }),
+      ])
       .json({ stat: "ok" });
   } catch (err) {
     res.status(401).end();
