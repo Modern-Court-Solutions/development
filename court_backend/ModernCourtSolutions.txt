@@ -1,14 +1,11 @@
 Requirements for MVP Backend:
-	Case Approval Table  -  2 hours
 	Create API calls for mover type class, address class, and other models that need it. - 4 hours
-	Tie files to documents - 2 hours
 	Documentation for api calls - 2 hours
 	Report Engine  -  24 hours
-	Quickbooks or other financials  -  Unknown
+	Differences Civil, Juvenile, and Criminal cases
 
 
 To Be Completed:
-	Authentication Tokens should be generated
 	Communication between Attorney and Court(APIs)
 
 
