@@ -10,7 +10,8 @@ const Navbar = ({ username }: Props) => {
   const [title, setTitle] = useState("");
 
   useEffect(() => {
-    setTitle(route.asPath.split("/")[2].replace("-", " "));
+    if (route.asPath === "/") setTitle("Home");
+    else setTitle(route.asPath.split("/")[2].replace("-", " ") || "Home");
   }, [route]);
 
   return (
