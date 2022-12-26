@@ -18,3 +18,11 @@ export const fetchJson = async (url: string, options: any) => {
 
   return await res.json();
 };
+
+export const fetchData = async (url: string, options: any) => {
+  const res = await fetch(url, options);
+  if (!res.ok) {
+    throw new ApiError(url, res.status, "Invalid credentials");
+  }
+  return await res.json();
+};

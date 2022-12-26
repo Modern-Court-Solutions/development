@@ -1,8 +1,13 @@
+type Status = {
+  id: number;
+  status: string;
+};
+
 type Case = {
   id: number;
-  name: string;
+  title: string;
   description: string;
-  status: string;
+  status: Status;
   created: string;
   updated: string;
   creator: string;
