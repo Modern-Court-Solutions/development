@@ -38,10 +38,10 @@ class AuthTokenSerializer(serializers.Serializer):
 class AuthenticationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Authentication
-        fields = ('id', 'authorization')
+        fields = ('id', 'authorization', 'user')
 
 class UserSerializerId(serializers.ModelSerializer):
-    authorization = AuthenticationSerializer()
+    authorization = AuthenticationSerializer(many = True)
     class Meta:
         model = User
         fields = ('id', 'email', 'authorization', 'name')

@@ -52,8 +52,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Authentication(models.Model):
     CLERK = 'Clerk'
     JUDGE = 'Judge'
+    LAWCLERK = "Law Clerk"
+    CHIEFCLERK = "Chief Clerk"
     AUTH_CHOICES = [
         (CLERK, 'Clerk'),
+        (LAWCLERK, 'Law Clerk'),
+        (CHIEFCLERK, 'Chief Clerk'),
         (JUDGE, 'Judge')
     ]
     authorization = models.CharField(max_length=25, choices=AUTH_CHOICES, default=CLERK)

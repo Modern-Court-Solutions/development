@@ -12,6 +12,11 @@ class UserAdmin(VersionAdmin):
 
     pass
 
+@admin.register(Authentication)
+class UserAdmin(VersionAdmin):
+
+    pass
+
 @admin.register(ChargeCode)
 class ChargeCodeAdmin(VersionAdmin):
 

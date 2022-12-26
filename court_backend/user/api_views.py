@@ -1,9 +1,9 @@
 from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
-from user.serializers import UserSerializer, AuthTokenSerializer, UserSerializerId
+from user.serializers import UserSerializer, AuthTokenSerializer, UserSerializerId, AuthenticationSerializer
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
-from basic_court.models import User
+from basic_court.models import User, Authentication
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
@@ -25,3 +25,7 @@ class UserList(ListAPIView):
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id', 'email')
     search_fields = ('id', 'email')
+
+class AuthList(ListAPIView):
+    queryset = Authentication.objects.all()
+    serializer_class = AuthenticationSerializer
