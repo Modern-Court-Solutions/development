@@ -1,21 +1,18 @@
-import { useEffect } from "react";
-import CurrentCourtCases from "../../../components/partials/CurrentCourtCases";
+import CourtCaseCard from "../../../components/partials/CourtCaseCard";
 import { fetchData } from "../../../lib/loginApi";
 
 type Props = {
   cases: Case[];
+  jwt: string;
 };
 
-const Dashboard = ({ cases }: Props) => {
-  useEffect(() => {
-    console.log("cases", cases);
-  }, []);
+const Dashboard = ({ cases, jwt }: Props) => {
   if (cases && cases.length) {
     return (
       <div className="w-full h-full flex items-center flex-col">
         <h1 className="py-6 text-3xl -ml-16">Current Cases</h1>
         <div className="w-fit max-h-[76vh] pr-6 flex flex-col items-center overflow-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-400">
-          <CurrentCourtCases cases={cases} />
+          <CourtCaseCard cases={cases} />
         </div>
       </div>
     );
@@ -34,8 +31,17 @@ export default Dashboard;
 
 export async function getServerSideProps(context: any) {
   const jwt = context.req.cookies.jwt || null;
+  if (!jwt) {
+    console.log("redirecting");
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/admin/authentication/login",
+      },
+    };
+  }
   const courtCases = await fetchData(
-    "http://127.0.0.1:8000/basic_court/api/cases/",
+    `http://127.0.0.1:8000/basic_court/api/cases/?status=3`,
     {
       method: "GET",
       headers: {
@@ -47,6 +53,7 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       cases: courtCases,
+      jwt: jwt,
     },
   };
 }
