@@ -22,6 +22,7 @@ const CourtCaseCard = ({ cases }: Props) => {
                 <div className="flex items-center space-x-3">
                   <h3 className="truncate text-md font-medium text-gray-900">
                     {courtCase?.title}
+                    {courtCase?.id}
                   </h3>
                   <span className="inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
                     {courtCase.status.status}
