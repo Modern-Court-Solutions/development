@@ -40,19 +40,16 @@ export async function getServerSideProps(context: any) {
       },
     };
   }
-  const courtCases = await fetchData(
-    `http://127.0.0.1:8000/basic_court/api/cases/?status=3`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${jwt}`,
-      },
-    }
-  );
+  const courtCases = await fetchData(`${process.env.DB_URL}/cases/?status=3`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${jwt}`,
+    },
+  });
   return {
     props: {
-      cases: courtCases,
+      cases: courtCases.results,
       jwt: jwt,
     },
   };
