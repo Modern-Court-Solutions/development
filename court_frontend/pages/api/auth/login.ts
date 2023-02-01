@@ -50,7 +50,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         throw new Error();
       }
       const userStatus = await response.json();
-      if (userStatus[0].name) {
+      if (userStatus[0] && userStatus[0]?.name) {
         userName = userStatus[0].name;
       }
     } catch (error) {
