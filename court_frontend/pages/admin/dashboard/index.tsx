@@ -14,8 +14,8 @@ const Dashboard = ({ initialData, jwt, url }: Props) => {
     async () => await getData(url, jwt),
     {
       initialData,
-      revalidateOnFocus: false,
-      refreshInterval: 5000,
+      revalidateOnFocus: true,
+      refreshInterval: 10000,
     }
   );
 
