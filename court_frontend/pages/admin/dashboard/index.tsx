@@ -1,22 +1,45 @@
+import useSWR from "swr";
 import CourtCaseCard from "../../../components/partials/CourtCaseCard";
-import { fetchData } from "../../../lib/loginApi";
+import { getData } from "../../../functions/getData";
 
 type Props = {
-  cases: Case[];
+  initialData: Case[];
   jwt: string;
+  url: string;
 };
 
-const Dashboard = ({ cases, jwt }: Props) => {
-  if (cases && cases.length) {
+const Dashboard = ({ initialData, jwt, url }: Props) => {
+  const { data: cases, error: casesError } = useSWR(
+    url,
+    async () => await getData(url, jwt),
+    {
+      initialData,
+      revalidateOnFocus: false,
+      refreshInterval: 5000,
+    }
+  );
+
+  if (cases && cases.results) {
     return (
       <div className="w-full h-full flex items-center flex-col">
         <h1 className="py-6 text-3xl -ml-16">Current Cases</h1>
         <div className="w-fit max-h-[76vh] pr-6 flex flex-col items-center overflow-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-400">
-          <CourtCaseCard cases={cases} />
+          <CourtCaseCard cases={cases.results} />
         </div>
       </div>
     );
   }
+  if (casesError) {
+    return (
+      <div className="w-full h-full flex items-center flex-col">
+        <h1 className="py-6 text-3xl -ml-16">Current Cases</h1>
+        <div className="w-fit max-h-[76vh] pr-6 flex flex-col items-center overflow-auto scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-400">
+          <p className="text-2xl text-red-500">Error: {casesError}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-full flex items-center flex-col">
       <h1 className="py-6 text-3xl -ml-16">Current Cases</h1>
@@ -40,17 +63,25 @@ export async function getServerSideProps(context: any) {
       },
     };
   }
-  const courtCases = await fetchData(`${process.env.DB_URL}/cases/?status=3`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Token ${jwt}`,
-    },
-  });
+
+  const key = "/api/cases/getDashboardCases";
+
+  const courtCases = await getData(
+    `${process.env.DB_URL}/cases/?status=3`,
+    jwt
+  );
+  if (!courtCases)
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/admin/authentication/login",
+      },
+    };
   return {
     props: {
-      cases: courtCases.results,
+      initialData: courtCases,
       jwt: jwt,
+      url: key,
     },
   };
 }
