@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import CourtCaseCard from "../../../components/partials/CourtCaseCard";
-import { fetchData } from "../../../lib/loginApi";
+import { getData } from "../../../functions/getData";
 
 type Props = {
   cases: Case[];
@@ -36,7 +36,6 @@ export default CourtCasesView;
 export async function getServerSideProps(context: any) {
   const jwt = context.req.cookies.jwt || null;
   if (!jwt) {
-    console.log("redirecting");
     return {
       redirect: {
         permanent: false,
@@ -44,23 +43,22 @@ export async function getServerSideProps(context: any) {
       },
     };
   }
-  const courtCases = await fetchData(
-    `http://127.0.0.1:8000/basic_court/api/cases/?status=3`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${jwt}`,
-      },
-    }
+  const courtCases = await getData(
+    `${process.env.DB_URL}/cases/?status=3`,
+    jwt
   );
+  if (!courtCases)
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/admin/authentication/login",
+      },
+    };
 
-  console.log(courtCases);
   return {
     props: {
       cases: courtCases.results,
       jwt: jwt,
     },
-    revalidate: process.env.REVALIDATE_SECONDS,
   };
 }

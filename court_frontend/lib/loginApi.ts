@@ -20,9 +20,7 @@ export const fetchJson = async (url: string, options: any) => {
 };
 
 export const fetchData = async (url: string, options: any) => {
-  console.log(options.headers.Authorization);
   if (options.headers.Authorization === "Token null") {
-    console.log("redirecting");
     return {
       redirect: {
         permanent: false,
