@@ -1,3 +1,11 @@
+type Config = {
+  method: "GET";
+  headers: {
+    "Content-Type": "application/json";
+    Authorization: string;
+  };
+};
+
 type Status = {
   id: number;
   status: string;
