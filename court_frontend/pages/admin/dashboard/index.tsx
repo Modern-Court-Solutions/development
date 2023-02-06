@@ -55,7 +55,6 @@ export default Dashboard;
 export async function getServerSideProps(context: any) {
   const jwt = context.req.cookies.jwt || null;
   if (!jwt) {
-    console.log("redirecting");
     return {
       redirect: {
         permanent: false,

@@ -62,7 +62,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     session.validated = true;
     setCookie("server-key", "value", { req, res, maxAge: 60 * 60 * 24 });
 
-    console.log(data.token);
     res
       .status(200)
       .setHeader("Set-Cookie", [

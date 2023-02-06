@@ -5,7 +5,6 @@ export const getServerSideProps = async (context: any) => {
   const { params } = context;
   const { caseId } = params as { caseId: string[] };
   const [id] = caseId;
-  console.log(id);
 
   const jwt = context.req.cookies.jwt || null;
   if (!jwt) {
@@ -17,7 +16,6 @@ export const getServerSideProps = async (context: any) => {
     };
   }
   const courtCase = await getData(`${process.env.DB_URL}/cases?id=${id}`, jwt);
-  console.log(courtCase);
   if (!courtCase)
     return {
       redirect: {
@@ -39,7 +37,6 @@ type pageProps = {
 };
 
 const CaseView = ({ case: caseData }: pageProps) => {
-  console.log(caseData);
   return (
     <div className="h-fit max-h-[85vh] overflow-auto bg-white shadow sm:rounded-lg justify-center mx-32 py-2 w-full lg:w-3/5 ">
       <div className=" ">
