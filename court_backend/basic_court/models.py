@@ -63,6 +63,8 @@ class Authentication(models.Model):
     authorization = models.CharField(max_length=25, choices=AUTH_CHOICES, default=CLERK)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1, related_name="authorization")
 
+
+#Websocket
 #File Model
 class File(models.Model):
     title = models.CharField(max_length=128, blank=True)
@@ -178,7 +180,7 @@ class CaseType(models.Model):
     def __str__(self):
         return f"{self.case_type}"
 
-
+#Websocket
 class Case(models.Model):
     title = models.CharField(max_length=50)
     file_number = models.CharField(max_length=50)
@@ -195,6 +197,7 @@ class Case(models.Model):
     def __str__(self):
         return f"{self.title}"
 
+#Websocket
 class CaseNotes(models.Model):
     note = models.CharField(default = "NA", max_length = 2000)
     case = ForeignKey(Case, on_delete=models.CASCADE, default=1, related_name="case_notes")
@@ -228,6 +231,7 @@ class ChargeClass(models.Model):
     def __str__(self):
         return f"{self.charge_class}"
 
+#Websocket
 class Charge(models.Model):
     title = models.CharField(max_length=25)
     code = models.ForeignKey(ChargeCode, on_delete=models.CASCADE)
@@ -259,6 +263,7 @@ class EventStatus(models.Model):
     ]
     event_status = models.CharField(max_length=15, choices = STATUS_CHOICES, default=ACTIVE)
 
+#Websocket
 class Event(models.Model):
     name = models.CharField(max_length=30)
     event_type = models.ForeignKey(EventType, on_delete=models.CASCADE, default=1, related_name='type')
@@ -269,6 +274,7 @@ class Event(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+#Websocket
 class EventNote(models.Model):
     note = models.CharField(default = "NA", max_length = 2000)
     event = ForeignKey(Event, on_delete=models.CASCADE, default=1, related_name="event_notes")
@@ -292,6 +298,7 @@ class DocumentType(models.Model):
     def __str__(self):
         return f"{self.document_type}"
 
+#Websocket
 class Document(models.Model):
     name = models.CharField(max_length=25)
     document_type = models.ForeignKey(DocumentType, on_delete=models.CASCADE, default=1)
@@ -299,6 +306,7 @@ class Document(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='documents')
     def __str__(self):
         return f"{self.name}"
+
 
 #Address and Contact models
 class Address(models.Model):
@@ -316,6 +324,7 @@ class Contact(models.Model):
     email = models.CharField(max_length = 50)
     secondary_email = models.CharField(max_length=50, null=True, blank=True)
 
+#Websocket
 #Attorney Model
 class Attorney(models.Model):
     f_name = models.CharField(max_length=50)
@@ -327,6 +336,7 @@ class Attorney(models.Model):
     def __str__(self):
         return f"{self.f_name, self.l_name}"
 
+#Websocket
 #Participant Model
 class Participant(models.Model):
     f_name = models.CharField(max_length=50)
@@ -352,6 +362,7 @@ class FeeCode(models.Model):
     def __str__(self):
         return f"{self.code}"
 
+#Websocket
 class Fee(models.Model):
     name = models.CharField(max_length=50)
     code = models.ForeignKey(FeeCode, on_delete=models.CASCADE)
@@ -359,7 +370,7 @@ class Fee(models.Model):
     def __str__(self):
         return f"{self.name, self.amount}"
 
-
+#Websocket
 #Join tables
 class ParticipantFeeJoin(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='fees')
@@ -368,25 +379,28 @@ class ParticipantFeeJoin(models.Model):
     def __str__(self):
         return f"{self.fee}"
 
-
+#Websocket
 class Mover(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='movers')
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE, related_name='mover')
     def __str__(self):
         return f"{self.participant}"
-
+#Websocket
 class Responder(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='responders')
     participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.participant}"
 
+#Websocket
 class MoverCounsel(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='mover_counsel')
     attorney = models.ForeignKey(Attorney, on_delete=models.CASCADE)
     def __str__(self):
         return f"{self.attorney}"
 
+
+#Websocket
 class ResponderCounsel(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='responder_counsel')
     attorney = models.ForeignKey(Attorney, on_delete=models.CASCADE)
@@ -408,6 +422,7 @@ class PaymentType(models.Model):
     def __str__(self):
         return f"{self.payment_type}"
 
+#Websocket
 class Payment(models.Model):
     amount = models.DecimalField(decimal_places=2, max_digits=8)
     date = models.DateTimeField(default=datetime.datetime.now())
@@ -425,9 +440,11 @@ class Changes(models.Model):
     previous_value = models.CharField(max_length = 250)
     new_value = models.CharField(max_length = 250)
 
+#Websocket
 #Report Model
 class Reports(models.Model):
     name = models.CharField(max_length=50)
     params = models.CharField(max_length=250)
     court = models.BooleanField(default=False)
     user = models.CharField(max_length=20)
+
