@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import CourtCaseCard from "../../../components/partials/CourtCaseCard";
 import { getData } from "../../../functions/getData";
 
@@ -8,9 +7,6 @@ type Props = {
 };
 
 const CourtCasesView = ({ cases, jwt }: Props) => {
-  useEffect(() => {
-    console.log(cases);
-  }, []);
   if (cases && cases.length) {
     return (
       <div className="w-full h-full flex items-center flex-col">
