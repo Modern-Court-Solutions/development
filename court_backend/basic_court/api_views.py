@@ -122,7 +122,7 @@ class ParticipantRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
         return response
 
 class CaseList(ListAPIView):
-    queryset = Case.objects.order_by('-date_filed')
+    queryset = Case.objects.order_by('-date_filed', 'id')
     serializer_class = CaseSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
