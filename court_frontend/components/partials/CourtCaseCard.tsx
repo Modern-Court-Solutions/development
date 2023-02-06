@@ -38,7 +38,7 @@ const CourtCaseCard = ({ cases }: Props) => {
             </div>
             <div>
               <div className="-mt-px h-10 flex divide-x divide-gray-200">
-                <Link href={`/admin/cases/`}>
+                <Link href={`/admin/cases/${courtCase.id}`}>
                   <div className="flex items-center w-full justify-center cursor-pointer">
                     <>
                       <OpenInNewIcon

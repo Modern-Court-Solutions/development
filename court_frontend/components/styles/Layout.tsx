@@ -33,7 +33,7 @@ const Layout = ({ children }: pageProps) => {
         </div>
         <div className="bg-slate-200 flex content h-full">
           <Sidebar />
-          {children}
+          <div className="w-full my-8 flex justify-center ">{children}</div>
         </div>
       </div>
     );
