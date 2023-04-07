@@ -40,6 +40,8 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that uses email instead username"""
+    first_name = models.CharField(max_length=255, null=True, default="Test")
+    last_name = models.CharField(max_length=255, null=True, default="Test")
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -191,7 +193,7 @@ class Case(models.Model):
     judge = models.ForeignKey(Judge, on_delete=models.CASCADE, default=1)
     location = models.ForeignKey(CaseLocation, on_delete=models.CASCADE, default = 1)
     date_filed = models.DateTimeField(default=datetime.datetime.now())
-    interpretor = models.BooleanField(default=False)
+    interpreter = models.BooleanField(default=False) 
     pro_se_litigant = models.BooleanField(default=False)
     filing_enabled = models.BooleanField(default=True)
     def __str__(self):
@@ -367,6 +369,10 @@ class Fee(models.Model):
     name = models.CharField(max_length=50)
     code = models.ForeignKey(FeeCode, on_delete=models.CASCADE)
     amount = models.DecimalField(decimal_places=2, max_digits=8)
+    # def remaining_balance(self):
+    #     total_payments = self.payments.aggregate(models.Sum('amount'))['amount__sum'] or 0
+    #     return self.amount - total_payments
+
     def __str__(self):
         return f"{self.name, self.amount}"
 
@@ -425,11 +431,12 @@ class PaymentType(models.Model):
 #Websocket
 class Payment(models.Model):
     amount = models.DecimalField(decimal_places=2, max_digits=8)
+#    Participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
     date = models.DateTimeField(default=datetime.datetime.now())
     payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
     fee = models.ForeignKey(ParticipantFeeJoin, on_delete=models.CASCADE, related_name='payments')
     def __str__(self):
-        return f"{self.amount}"
+        return f"{self.participant}: {self.amount} on {self.payment_date}"
 
 class Changes(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE, related_name='changes')

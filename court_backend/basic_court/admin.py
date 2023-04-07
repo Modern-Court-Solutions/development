@@ -1,16 +1,19 @@
 from ast import Add
 from django.contrib import admin
 from reversion.admin import VersionAdmin
-
+from django.contrib.auth import admin as auth_admin
 from .models import *
-
-
 
 # Register your models here.
 @admin.register(User)
 class UserAdmin(VersionAdmin):
+    list_display = ('email', 'first_name', 'last_name', 'is_staff', 'groups_list')
 
-    pass
+    def groups_list(self, obj):
+        return ", ".join([g.name for g in obj.groups.all()])
+    groups_list.short_description = 'Groups'
+
+    filter_horizontal = ('groups',)
 
 @admin.register(Authentication)
 class UserAdmin(VersionAdmin):

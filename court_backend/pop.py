@@ -150,7 +150,7 @@ def AddEventNote(eventList):
         n.save()
 
 def AddChargeCode():
-    c = ChargeCode.objects.get_or_create(code = random.choice(['Assault', 'Battery', 'Possesion']))[0]
+    c = ChargeCode.objects.get_or_create(code = random.choice(['Assault', 'Battery', 'Possession']))[0]
     c.save()
     return c
 

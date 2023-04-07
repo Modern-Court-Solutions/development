@@ -209,13 +209,13 @@ class CaseSerializer(serializers.ModelSerializer):
     fees = ParticipantFeeSerializer(many=True)
     class Meta:
         model = Case
-        fields = ('id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'case_notes', 'case_charges', 'events', 'documents', 'movers', 'responders', 'mover_counsel', 'responder_counsel', 'fees')
+        fields = ('id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpreter', 'pro_se_litigant', 'filing_enabled', 'case_notes', 'case_charges', 'events', 'documents', 'movers', 'responders', 'mover_counsel', 'responder_counsel', 'fees')
 
 
 class CreateCaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Case
-        fields = ('id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpretor', 'pro_se_litigant', 'filing_enabled')
+        fields = ('id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpreter', 'pro_se_litigant', 'filing_enabled')
 
 
 class DocumentTypeSerializer(serializers.ModelSerializer):

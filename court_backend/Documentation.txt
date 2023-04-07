@@ -5,16 +5,16 @@ http://127.0.0.1:8000/basic_court/api/cases/5/ will work for a delete but http:/
 
 		http://127.0.0.1:8000/basic_court/api/cases/
 			GET api call. Returns a list of new cases. 
-			Filters: 'status', 'security', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders',
+			Filters: 'status', 'security', 'title', 'case_type', 'judge', 'location', 'interpreter', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders',
 			Search: 'id','title', 'file_number',
 
 		http://127.0.0.1:8000/basic_court/api/cases/new
 			POST api call. Creates a new case. Only adds and takes the following:
-				'id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpretor', 'pro_se_litigant', 'filing_enabled'
+				'id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpreter', 'pro_se_litigant', 'filing_enabled'
 
 		http://127.0.0.1:8000/basic_court/api/cases/<int:id>/
 			GET/PUT/PATCH/DELETE api call. Shows and allows changes to the following fields:
-				'id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpretor', 'pro_se_litigant', 'filing_enabled'
+				'id', 'title', 'file_number', 'security', 'status', 'status_date', 'case_type', 'judge', 'location', 'date_filed', 'interpreter', 'pro_se_litigant', 'filing_enabled'
 
 	Attorney APIs:
 
@@ -179,8 +179,75 @@ http://127.0.0.1:8000/basic_court/api/cases/5/ will work for a delete but http:/
 
 		http://127.0.0.1:8000/basic_court/api/calendar/
 			GET api call. Returns a list of cases
-			Filters: 'id', 'status', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders'
+			Filters: 'id', 'status', 'title', 'case_type', 'judge', 'location', 'interpreter', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders'
 			Search: 'title', 'file_number',
 
 		
 
+1. Reports List API
+
+Endpoint: /api/reports/
+
+Method: GET
+
+Description: Returns a list of reports.
+
+Authentication: Required (Token Authentication)
+
+Permissions: Required (IsAuthenticated, DjangoModelPermissions)
+
+Filters: id, name, params, court, user
+
+Search: id, name, params, court, user
+2. Create New Report API
+
+Endpoint: /api/reports/new
+
+Method: POST
+
+Description: Creates a new report.
+
+Authentication: Required (Token Authentication)
+
+Permissions: Required (IsAuthenticated, DjangoModelPermissions)
+
+Data: JSON payload with the following fields: name, params, court, user
+3. Retrieve, Update, or Destroy Report API
+
+Endpoint: /api/reports/<int:id>/
+
+Method: GET, PUT, PATCH, DELETE
+
+Description: Retrieves, updates, or destroys a report based on the provided id.
+
+Authentication: Required (Token Authentication)
+
+Permissions: Required (IsAuthenticated, DjangoModelPermissions)
+
+URL Parameters: id (integer)
+4. Create New File API
+
+Endpoint: /api/files/new
+
+Method: POST
+
+Description: Uploads a new file.
+
+Authentication: Required (Token Authentication)
+
+Permissions: Required (IsAuthenticated, DjangoModelPermissions)
+
+Data: JSON payload with the following fields: title, file
+5. Retrieve, Update, or Destroy File API
+
+Endpoint: /api/files/<int:id>/
+
+Method: GET, PUT, PATCH, DELETE
+
+Description: Retrieves, updates, or destroys a file based on the provided id.
+
+Authentication: Required (Token Authentication)
+
+Permissions: Required (IsAuthenticated, DjangoModelPermissions)
+
+URL Parameters: id (integer)

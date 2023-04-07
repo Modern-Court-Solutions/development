@@ -1,10 +1,8 @@
 Requirements for MVP Backend:
-	Create API calls for mover type class, address class, and other models that need it. - 4 hours
 	Documentation for api calls - 2 hours
-	Report Engine  -  16 hours //to do after recieving requirements
-	Differences Civil, Juvenile, and Criminal cases  - 8 hours //to do after recieving requirements
-	GROUPS AND PERMISSIONS - 10 hours
-	Cycle tokens - 4 hours
+	Report Engine  -  16 hours //to do after receiving requirements
+	Differences Civil, Juvenile, and Criminal cases  - 8 hours //to do after receiving requirements
+	GROUPS AND PERMISSIONS - 1 hour
 TIME: 40 hrs max
 
 

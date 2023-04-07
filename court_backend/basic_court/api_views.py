@@ -9,13 +9,15 @@ from rest_framework.filters import SearchFilter
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import DjangoModelPermissions
+from .permissions import *
 
 from basic_court.models import Case
 
 class FileCreate(CreateAPIView):
     serializer_class = FileSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def create(self, request, *args, **kwargs):
@@ -26,7 +28,7 @@ class FileRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = FileSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def delete(self, request, *args, **kwargs):
@@ -45,7 +47,7 @@ class AttorneyList(ListAPIView):
     queryset = Attorney.objects.all()
     serializer_class = AttorneySerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('f_name', 'l_name', 'barnum')
@@ -55,7 +57,7 @@ class AttorneyList(ListAPIView):
 class AttorneyCreate(CreateAPIView):
     serializer_class = CreateAttorneySerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def create(self, request, *args, **kwargs):
@@ -66,7 +68,7 @@ class AttorneyRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = CreateAttorneySerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def delete(self, request, *args, **kwargs):
@@ -85,7 +87,7 @@ class ParticipantList(ListAPIView):
     queryset = Participant.objects.all()
     serializer_class = ParticipantSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id', 'f_name', 'l_name')
@@ -95,7 +97,7 @@ class ParticipantList(ListAPIView):
 class ParticipantCreate(CreateAPIView):
     serializer_class = CreateParticipantSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def create(self, request, *args, **kwargs):
@@ -106,7 +108,7 @@ class ParticipantRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = CreateParticipantSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def delete(self, request, *args, **kwargs):
@@ -125,10 +127,10 @@ class CaseList(ListAPIView):
     queryset = Case.objects.order_by('-date_filed', 'id')
     serializer_class = CaseSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes =  [GroupPermission]
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_fields = ('id', 'status', 'security', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders', 'mover_counsel', 'responder_counsel')
+    filter_fields = ('id', 'status', 'security', 'title', 'case_type', 'judge', 'location', 'interpreter', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders', 'mover_counsel', 'responder_counsel')
     search_fields = ('id','title', 'file_number',)
     #   
 
@@ -136,16 +138,16 @@ class CalendarList(ListAPIView):
     queryset = Case.objects.order_by('-date_filed')
     serializer_class = CaseSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
 
     filter_backends = (DjangoFilterBackend, SearchFilter)
-    filter_fields = ('id', 'status', 'title', 'case_type', 'judge', 'location', 'interpretor', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders', 'mover_counsel', 'responder_counsel') 
+    filter_fields = ('id', 'status', 'title', 'case_type', 'judge', 'location', 'interpreter', 'pro_se_litigant', 'filing_enabled', 'movers', 'responders', 'mover_counsel', 'responder_counsel') 
     search_fields = ('title', 'file_number',)
 
 class CaseCreate(CreateAPIView):
     serializer_class = CreateCaseSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     
 
@@ -157,7 +159,7 @@ class CaseRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = CreateCaseSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def delete(self, request, *args, **kwargs):
@@ -176,7 +178,7 @@ class CaseNotesList(ListAPIView):
     queryset = CaseNotes.objects.order_by('-date_created')
     serializer_class = CaseNotesSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id', 'case')
@@ -186,7 +188,7 @@ class CaseNotesList(ListAPIView):
 class CaseNotesCreate(CreateAPIView):
     serializer_class = CaseNotesSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def create(self, request, *args, **kwargs):
@@ -197,7 +199,7 @@ class CaseNotesRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = CaseNotesSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def delete(self, request, *args, **kwargs):
@@ -212,7 +214,7 @@ class JudgeList(ListAPIView):
     queryset = Judge.objects.all()
     serializer_class = JudgeSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id', 'f_name', 'l_name')
@@ -223,7 +225,7 @@ class ChargeList(ListAPIView):
     queryset = Charge.objects.all()
     serializer_class = ChargeSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id', 'code', 'case',)
@@ -233,7 +235,7 @@ class ChargeList(ListAPIView):
 class ChargeCreate(CreateAPIView):
     serializer_class = CreateChargeSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def create(self, request, *args, **kwargs):
@@ -244,7 +246,7 @@ class ChargeRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = CreateChargeSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def delete(self, request, *args, **kwargs):
@@ -259,7 +261,7 @@ class EventList(ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id', 'case', 'status', 'event_type',)
@@ -269,7 +271,7 @@ class EventList(ListAPIView):
 class EventCreate(CreateAPIView):
     serializer_class = CreateEventSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def create(self, request, *args, **kwargs):
@@ -280,7 +282,7 @@ class EventRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = CreateEventSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def delete(self, request, *args, **kwargs):
@@ -298,7 +300,7 @@ class CaseSecurityList(ListAPIView):
     queryset = CaseSecurity.objects.all()
     serializer_class = CaseSecuritySerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
@@ -309,7 +311,7 @@ class CaseStatusList(ListAPIView):
     queryset = CaseStatus.objects.all()
     serializer_class = CaseStatusSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
@@ -320,7 +322,7 @@ class CaseTypeList(ListAPIView):
     queryset = CaseType.objects.all()
     serializer_class = CaseTypeSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
@@ -331,7 +333,7 @@ class CaseLocationList(ListAPIView):
     queryset = CaseLocation.objects.all()
     serializer_class = CaseLocationSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
@@ -342,7 +344,7 @@ class EventStatusList(ListAPIView):
     queryset = EventStatus.objects.all()
     serializer_class = EventStatusSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
@@ -353,7 +355,7 @@ class EventTypeList(ListAPIView):
     queryset = EventType.objects.all()
     serializer_class = EventTypeSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
@@ -364,7 +366,7 @@ class DocumentTypeList(ListAPIView):
     queryset = DocumentType.objects.all()
     serializer_class = DocumentTypeSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
@@ -375,7 +377,7 @@ class PaymentTypeList(ListAPIView):
     queryset = PaymentType.objects.all()
     serializer_class = PaymentTypeSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
@@ -387,7 +389,7 @@ class FeeCodeList(ListAPIView):
     queryset = FeeCode.objects.all()
     serializer_class = FeeCodeSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id',)
@@ -397,7 +399,7 @@ class ReportList(ListAPIView):
     queryset = Reports.objects.all()
     serializer_class = ReportSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('id', 'name', 'params', 'court', 'user',)
@@ -407,7 +409,7 @@ class ReportList(ListAPIView):
 class ReportCreate(CreateAPIView):
     serializer_class = ReportSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def create(self, request, *args, **kwargs):
@@ -418,7 +420,7 @@ class ReportRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = ReportSerializer
     authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, DjangoModelPermissions,)
     
 
     def delete(self, request, *args, **kwargs):

@@ -183,7 +183,7 @@ class CaseModelTests(TestCase):
         self.assertIsInstance(self.case.date_filed, datetime)
 
     def test_default_values(self):
-        self.assertEqual(self.case.interpretor, False)
+        self.assertEqual(self.case.interpreter, False)
         self.assertEqual(self.case.pro_se_litigant, False)
         self.assertEqual(self.case.filing_enabled, True)
 
